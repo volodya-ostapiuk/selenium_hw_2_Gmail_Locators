@@ -76,7 +76,7 @@ public class GmailLocatorsTest {
         WebElement lastSentTopic = webDriver.findElement(By.className("hP"));
         Assert.assertTrue(lastSentTopic.getText().contains(LETTER_TOPIC),
                 "Last sent letter doesn't contain sent letter topic.");
-        WebElement lastSentReceiver = webDriver.findElement(By.xpath("//*[@class='hb']/span"));
+        WebElement lastSentReceiver = webDriver.findElement(By.cssSelector(".hb > span"));
         Assert.assertTrue(lastSentReceiver.getAttribute("email").contains(RECEIVER_EMAIL),
                 "Last sent letter doesn't contain sent letter receiver.");
         WebElement lastSentLetter = webDriver.findElement(By.xpath("//div[@class='ii gt']//*[@dir='ltr']"));
