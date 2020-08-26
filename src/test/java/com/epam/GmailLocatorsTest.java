@@ -42,7 +42,7 @@ public class GmailLocatorsTest {
     @Test
     private void verifyLogin() {
         verifyValidEmail();
-        VerifyPassword();
+        verifyPassword();
     }
 
     private void verifyValidEmail() {
@@ -54,7 +54,7 @@ public class GmailLocatorsTest {
                 .contains(TEST_EMAIL.toLowerCase()), "Not valid email.");
     }
 
-    private void VerifyPassword() {
+    private void verifyPassword() {
         WebElement passwordInput = (new WebDriverWait(webDriver, TIME_WAIT))
                 .until(ExpectedConditions.elementToBeClickable(By.name("password")));
         passwordInput.sendKeys(TEST_PASSWORD);
