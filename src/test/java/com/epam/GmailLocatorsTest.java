@@ -69,18 +69,21 @@ public class GmailLocatorsTest {
     private void verifyLetterSent() {
         createLetter();
         //wait until link in pop-up message about letter status will be clickable
-        WebElement sentLetterLink = (new WebDriverWait(webDriver, TIME_WAIT))
+        (new WebDriverWait(webDriver, TIME_WAIT))
                 .until(ExpectedConditions.elementToBeClickable(By.id("link_vsm")));
-        //check if last sent letter contains email, text and topic
-        sentLetterLink.click();
+        //check if last sent letter contains needed email, text and topic
+        WebElement sentLettersFolder = webDriver.findElement(By.xpath("//*[@class='TK']/div[4]//a[@class='J-Ke n0']"));
+        sentLettersFolder.click();
+        WebElement lastSentLetter = webDriver.findElement(By.cssSelector(".ae4.UI tr:nth-child(1)"));
+        lastSentLetter.click();
         WebElement lastSentTopic = webDriver.findElement(By.className("hP"));
         Assert.assertTrue(lastSentTopic.getText().contains(LETTER_TOPIC),
                 "Last sent letter doesn't contain sent letter topic.");
         WebElement lastSentReceiver = webDriver.findElement(By.cssSelector(".hb > span"));
         Assert.assertTrue(lastSentReceiver.getAttribute("email").contains(RECEIVER_EMAIL),
                 "Last sent letter doesn't contain sent letter receiver.");
-        WebElement lastSentLetter = webDriver.findElement(By.xpath("//div[@class='ii gt']//*[@dir='ltr']"));
-        Assert.assertTrue(lastSentLetter.getText().contains(LETTER_TEXT),
+        WebElement lastSentText = webDriver.findElement(By.xpath("//div[@class='ii gt']//*[@dir='ltr']"));
+        Assert.assertTrue(lastSentText.getText().contains(LETTER_TEXT),
                 "Last sent letter doesn't contain sent letter text.");
     }
 
