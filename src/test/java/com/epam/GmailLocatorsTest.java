@@ -45,6 +45,9 @@ public class GmailLocatorsTest {
         verifyPassword();
     }
 
+    /*
+     * Enter email, check does chosen profile link contains email
+     */
     private void verifyValidEmail() {
         WebElement emailInput = webDriver.findElement(By.id("identifierId"));
         emailInput.sendKeys(TEST_EMAIL);
@@ -54,6 +57,10 @@ public class GmailLocatorsTest {
                 .contains(TEST_EMAIL.toLowerCase()), "Not valid email.");
     }
 
+    /*
+     * Enter password. Wait until new page will be opened and element will be clickable on it
+     * Check does page title contains email
+     */
     private void verifyPassword() {
         WebElement passwordInput = (new WebDriverWait(webDriver, TIME_WAIT))
                 .until(ExpectedConditions.elementToBeClickable(By.name("password")));
@@ -65,13 +72,16 @@ public class GmailLocatorsTest {
                 .contains(TEST_EMAIL.toLowerCase()), "Wrong password.");
     }
 
+    /*
+     * Create new letter
+     * Wait until link in pop-up message about letter status will be clickable
+     * Check if last sent letter contains needed email, text and topic
+     */
     @Test(dependsOnMethods = "verifyLogin")
     private void verifyLetterSent() {
         createLetter();
-        //wait until link in pop-up message about letter status will be clickable
         (new WebDriverWait(webDriver, TIME_WAIT))
                 .until(ExpectedConditions.elementToBeClickable(By.id("link_vsm")));
-        //check if last sent letter contains needed email, text and topic
         WebElement sentLettersFolder = webDriver.findElement(By.xpath("//*[@class='TK']/div[4]//a[@class='J-Ke n0']"));
         sentLettersFolder.click();
         WebElement lastSentLetter = webDriver.findElement(By.cssSelector(".ae4.UI tr:nth-child(1)"));
@@ -97,7 +107,7 @@ public class GmailLocatorsTest {
         topicField.sendKeys(LETTER_TOPIC);
         WebElement letterTextField = webDriver.findElement(By.xpath("//*[@class=\"Am Al editable LW-avf tS-tW\"]"));
         letterTextField.sendKeys(LETTER_TEXT);
-        WebElement sendButton = webDriver.findElement(By.xpath("//*[@class='T-I J-J5-Ji aoO v7 T-I-atl L3']"));
+        WebElement sendButton = webDriver.findElement(By.cssSelector(".T-I.J-J5-Ji.aoO.v7.T-I-atl.L3"));
         sendButton.click();
     }
 
